@@ -1,3 +1,4 @@
+# Responsável por gerenciar os times e suas operações.
 class BallitChampionship:
     def __init__(self):
         self.teams = []
@@ -16,6 +17,7 @@ class BallitChampionship:
         })
         print(f"Time '{name}' cadastrado com sucesso.")
 
+# O método validate_teams: Verifica se o número de times cadastrados está entre 8 e 16 e se é par.
     def validate_teams(self):
         num_teams = len(self.teams)
         if num_teams < 8:
@@ -25,7 +27,8 @@ class BallitChampionship:
             print("Erro: O número de times deve ser par.")
             return False
         return True
-
+    
+# Método display_teams: Exibe a lista de times cadastrados.
     def display_teams(self):
         if not self.teams:
             print("Nenhum time cadastrado.")
