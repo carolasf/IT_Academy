@@ -75,9 +75,29 @@ class BallitChampionship:
             teams.append({'name': 'Bye', 'chant': 'None', 'founding_year': 0})
 
         random.shuffle(teams)  # Embaralha os times para formar duplas aleatórias
+        # cria uma lista de tuplas, onde cada tupla representa uma partida entre dois times. A lista teams é percorrida de dois em dois, formando duplas de times para as partidas.
+        matches = [(teams[i], teams[i + 1]) for i in range(0, len(teams), 2)]
         winners = [] # Lista para armazenar os vencedores das partidas
 
+        # Loop para gerenciar as partidas da fase atual
+        while matches:
+            # Exibe as partidas restantes que ainda precisam ser realizadas
+            print("Partidas a serem realizadas:")
+
+            # Percorre cada partida (tupla de dois times) na lista matches
+            for idx, (team1, team2) in enumerate(matches):
+                # Exibe o índice da partida (iniciado em 1) e os nomes dos times que vão jogar
+                print(f"{idx + 1}: {team1['name']} vs {team2['name']}")
+            
+            match_choice = int(input("Escolha o número da partida que deseja administrar: ")) - 1
+            team1, team2 = matches.pop(match_choice)
+            winner = self.play_match(team1, team2)
+            winners.append(winner)
+        
+        return winners
+
         # Realiza as partidas em duplas
+        """
         for i in range(0, len(teams), 2):
             team1 = teams[i]
             team2 = teams[i + 1]
@@ -85,6 +105,7 @@ class BallitChampionship:
             winners.append(winner)  # Adiciona um venncedor a lista
         
         return winners # Retorna a lista de vencedores
+        """
 
     # Simula uma partida entre dois times e escolhe aleatoriamente um vencedor
     def play_match(self, team1, team2):
