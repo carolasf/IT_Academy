@@ -70,8 +70,10 @@ class BallitChampionship:
         # Verifica se o número de times é par
         # Se não for, levanta uma exceção com uma mensagem de erro.
         if len(teams) % 2 != 0:
-            raise ValueError("O número de times deve ser par para formar duplas.")
-        
+            print("Número ímpar de times. Adicionando um 'bye'.")
+            # Adiciona um 'bye' fictício para que o número de times seja par
+            teams.append({'name': 'Bye', 'chant': 'None', 'founding_year': 0})
+
         random.shuffle(teams)  # Embaralha os times para formar duplas aleatórias
         winners = [] # Lista para armazenar os vencedores das partidas
 
@@ -86,6 +88,11 @@ class BallitChampionship:
 
     # Simula uma partida entre dois times e escolhe aleatoriamente um vencedor
     def play_match(self, team1, team2):
+        if team2['name'] == 'Bye':
+            # Se o time adversário é um 'bye', o time 1 avança automaticamente
+            print(f"{team1['name']} avança automaticamente para a próxima fase.")
+            return team1
+        
         print(f"Partida: {team1['name']} vs {team2['name']}")
         winner = random.choice([team1, team2])  # Escolhe aleatoriamente o vencedor
         print(f"Vencedor: {winner['name']}")
