@@ -1,3 +1,4 @@
+import random 
 
 class BallitChampionship:
     #Este é o "construtor" da classe. Sempre que você cria um novo campeonato, ele inicializa uma lista vazia para armazenar os times.
@@ -66,6 +67,11 @@ class BallitChampionship:
 
     # Organiza e realiza as partidas de uma fase
     def play_round(self, teams):
+        # Verifica se o número de times é par
+        # Se não for, levanta uma exceção com uma mensagem de erro.
+        if len(teams) % 2 != 0:
+            raise ValueError("O número de times deve ser par para formar duplas.")
+        
         random.shuffle(teams)  # Embaralha os times para formar duplas aleatórias
         winners = [] # Lista para armazenar os vencedores das partidas
 
@@ -121,8 +127,11 @@ if __name__ == "__main__":
     if championship.validate_teams():
         # Exibe os times cadastrados
         championship.display_teams()
+        # Pergunta ao usuário se deseja iniciar o campeonato
+        start = input("Deseja iniciar o campeonato? (s/n): ").strip().lower()
+        if start == 's':
         # Inicia o campeonnato
-        championship.start_championship()
+            championship.start_championship()
     else:
         # Se a validação dos times falhar, exibe uma mensagem de erro
         print("A validação dos times falhou.")
