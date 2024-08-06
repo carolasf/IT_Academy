@@ -36,6 +36,7 @@ class BallitChampionship:
             return False
         return True
 
+    # Exibe os times cadastrados
     def display_teams(self):
         if not self.teams:
             print("Nenhum time cadastrado.")
@@ -145,7 +146,7 @@ def add_teams_interactively(championship):
 
 # Exemplo de uso:
 if __name__ == "__main__":
-    print("Bem-vindo ao Campeonato Internacional de BALLIT!")
+    print("Bem-vindo ao Campeonato Internacional de BALLIT! Cadastre os times para que o campeonato inicie!")
     
     while True:
         championship = BallitChampionship()
