@@ -19,7 +19,7 @@ class BallitChampionship:
         self.teams.append({
             'name': name, # Nome do time
             'chant': chant, # Grito de guerra do time
-            'founding_year': founding_year # Anno de fudação do time
+            'founding_year': founding_year # Ano de fundação do time
         })
         print(f"Time '{name}' cadastrado com sucesso.")
 
@@ -55,17 +55,19 @@ class BallitChampionship:
         
         round_number = 1 #número da fase inicial
         current_teams = self.teams.copy() # Faz uma cópia da lista de times para manipulação durante o campeonato
-
+    
         # Continua até restar apenas um time
+        
         while len(current_teams) > 1:
             print(f"\n--- Fase {round_number} ---")
             winners = self.play_round(current_teams) # Organiza e realiza as partidas da fase
             current_teams = winners # Atualiza a lista de times com os vencedores
             round_number += 1  # Avança para a próxima fase
         
-        print(f"\nO vencedor do campeonato é o time '{current_teams[0]['name']}'!")
-
-    # Organiza e realiza as partidas de uma fase
+        print(f"\nO vencedor do campeonato é o time '{current_teams[0]['name']}'!") 
+        
+    
+    # Organiza e realizar as partidas de uma fase
     def play_round(self, teams):
         # Verifica se o número de times é par
         # Se não for, levanta uma exceção com uma mensagem de erro.
@@ -96,17 +98,6 @@ class BallitChampionship:
         
         return winners
 
-        # Realiza as partidas em duplas
-        """
-        for i in range(0, len(teams), 2):
-            team1 = teams[i]
-            team2 = teams[i + 1]
-            winner = self.play_match(team1, team2)  # Realiza a partida e obtém o vencedor
-            winners.append(winner)  # Adiciona um venncedor a lista
-        
-        return winners # Retorna a lista de vencedores
-        """
-
     # Simula uma partida entre dois times e escolhe aleatoriamente um vencedor
     def play_match(self, team1, team2):
         if team2['name'] == 'Bye':
@@ -118,6 +109,7 @@ class BallitChampionship:
         winner = random.choice([team1, team2])  # Escolhe aleatoriamente o vencedor
         print(f"Vencedor: {winner['name']}")
         return winner # Retorna o time vencedor
+    
 
 # Função para adicionar
 def add_teams_interactively(championship):
@@ -145,21 +137,24 @@ def add_teams_interactively(championship):
 
 # Exemplo de uso:
 if __name__ == "__main__":
-    # Cria uma nova instância da classe BallitChampionship
-    championship = BallitChampionship()
-    
-    # Adiciona times interativamente
-    add_teams_interactively(championship)
+    print("Bem-vindo ao Campeonato Internacional de BALLIT! Iicie o cadastro dos times!")
 
-    # Verifica se os times cadastrados são válidos para iniciar o campeonato
-    if championship.validate_teams():
-        # Exibe os times cadastrados
-        championship.display_teams()
-        # Pergunta ao usuário se deseja iniciar o campeonato
-        start = input("Deseja iniciar o campeonato? (s/n): ").strip().lower()
-        if start == 's':
-        # Inicia o campeonnato
-            championship.start_championship()
-    else:
-        # Se a validação dos times falhar, exibe uma mensagem de erro
-        print("A validação dos times falhou.")
+    while True:
+        # Cria uma nova instância da classe BallitChampionship
+        championship = BallitChampionship()
+        
+        # Adiciona times interativamente
+        add_teams_interactively(championship)
+
+        # Verifica se os times cadastrados são válidos para iniciar o campeonato
+        if championship.validate_teams():
+            # Exibe os times cadastrados
+            championship.display_teams()
+            # Pergunta ao usuário se deseja iniciar o campeonato
+            start = input("Deseja iniciar o campeonato? (s/n): ").strip().lower()
+            if start == 's':
+            # Inicia o campeonnato
+                championship.start_championship()
+        else:
+            # Se a validação dos times falhar, exibe uma mensagem de erro
+            print("A validação dos times falhou, insira mais um time pois o número de times cadastrados deverá ser par.")
