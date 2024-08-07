@@ -2,41 +2,35 @@ import random
 
 class BallitChampionship:
     def __init__(self):
-        # Inicializa a lista de times e as partidas da fase atual
         self.teams = []
         self.current_phase_matches = []
 
     def add_team(self, name, chant, founding_year):
-        # Adiciona um time ao campeonato se o limite de 16 times ainda não foi atingido
         if len(self.teams) >= 16:
             print("Erro: O número máximo de times (16) já foi atingido.")
             return
-        # Verifica se o nome do time já está cadastrado
         if any(team['name'] == name for team in self.teams):
             print(f"Erro: O time com o nome '{name}' já está cadastrado.")
             return
-        # Adiciona o time à lista de times com os detalhes fornecidos
         self.teams.append({
             'name': name,
             'chant': chant,
             'founding_year': founding_year,
-            'points': 0  # Inicializa os pontos do time como 0
+            'points': 0
         })
         print(f"Time '{name}' cadastrado com sucesso.")
 
     def validate_teams(self):
-        # Verifica se o número de times é suficiente e se é par
         num_teams = len(self.teams)
-        if num_teams < 8:
-            print("Erro: O número mínimo de times (8) não foi atingido.")
-            return False
         if num_teams % 2 != 0:
             print("Erro: O número de times deve ser par.")
+            return False
+        if num_teams < 8 or num_teams > 16:
+            print("Erro: O número de times deve ser entre 8 e 16.")
             return False
         return True
 
     def display_teams(self):
-        # Exibe a lista de times cadastrados
         if not self.teams:
             print("Nenhum time cadastrado.")
         else:
@@ -45,7 +39,6 @@ class BallitChampionship:
                 print(f"Nome: {team['name']}, Grito de Guerra: {team['chant']}, Ano de Fundação: {team['founding_year']}")
 
     def start_championship(self):
-        # Inicia o campeonato se a validação dos times for bem-sucedida
         if not self.validate_teams():
             print("A validação dos times falhou. Iniciando novamente...")
             return
@@ -54,14 +47,12 @@ class BallitChampionship:
         while True:
             print(f"\n--- Fase {round_number} ---")
             self.manage_phase()
-            # Se restar apenas um time, ele é o vencedor do campeonato
             if len(self.teams) == 1:
                 print(f"\nO vencedor do campeonato é o time '{self.teams[0]['name']}'!")
                 break
             round_number += 1
 
     def organize_matches(self, teams):
-        # Embaralha os times e organiza as partidas em duplas
         random.shuffle(teams)
         if len(teams) % 2 != 0:
             raise ValueError("O número de times deve ser par para formar duplas.")
@@ -69,7 +60,6 @@ class BallitChampionship:
         return matches
 
     def manage_phase(self):
-        # Gerencia as partidas da fase atual
         self.current_phase_matches = self.organize_matches(self.teams)
         winners = []
         while self.current_phase_matches:
@@ -84,7 +74,6 @@ class BallitChampionship:
         self.teams = winners
 
     def administer_match(self, team1, team2):
-        # Administra uma partida entre dois times
         team1['points'] = 50
         team2['points'] = 50
         print(f"\n--- Partida: {team1['name']} vs {team2['name']} ---")
@@ -111,7 +100,6 @@ class BallitChampionship:
                 print("Opção inválida. Tente novamente.")
 
     def determine_winner(self, team1, team2):
-        # Determina o vencedor da partida com base nos pontos
         print(f"Partida encerrada: {team1['name']} vs {team2['name']}")
         if team1['points'] > team2['points']:
             print(f"Vencedor: {team1['name']}")
@@ -121,19 +109,31 @@ class BallitChampionship:
             return team2
         else:
             print("Empate! Realizando 'grusht' para desempate...")
-            winner = random.choice([team1, team2])
-            print(f"Vencedor após 'grusht': {winner['name']}")
-            return winner
+            return self.grusht(team1, team2)
+
+    def grusht(self, team1, team2):
+        # Simula a medição dos decibéis das torcidas
+        team1['decibels'] = random.randint(70, 120)
+        team2['decibels'] = random.randint(70, 120)
+        
+        print(f"Decibéis registrados: {team1['name']} - {team1['decibels']} dB | {team2['name']} - {team2['decibels']} dB")
+        
+        if team1['decibels'] > team2['decibels']:
+            team1['points'] += 3
+            print(f"Vencedor após 'grusht': {team1['name']}")
+            return team1
+        else:
+            team2['points'] += 3
+            print(f"Vencedor após 'grusht': {team2['name']}")
+            return team2
 
 def add_teams_interactively(championship):
-    # Adiciona times interativamente até que o mínimo de 8 times seja alcançado
     while len(championship.teams) < 8:
         name = input(f"Qual o nome do time {len(championship.teams) + 1}? ")
         chant = input(f"Qual o grito de guerra do time {name}? ")
         founding_year = int(input(f"Em que ano foi fundado o time {name}? "))
         championship.add_team(name, chant, founding_year)
 
-    # Permite adicionar mais times até o limite de 16
     while len(championship.teams) < 16:
         add_more = input("Deseja adicionar mais um time? (s/n): ").strip().lower()
         if add_more == 'n':
@@ -145,7 +145,7 @@ def add_teams_interactively(championship):
 
 # Exemplo de uso:
 if __name__ == "__main__":
-    print("Bem-vindo ao Campeonato Internacional de Ballit!")
+    print("Bem-vindo ao Campeonato Internacional de Ballit! Cadastre os times! Instruções: cadastre um número par entre 8 e 16 times!")
     while True:
         championship = BallitChampionship()
         
@@ -160,4 +160,4 @@ if __name__ == "__main__":
                 championship.start_championship()
                 break
         else:
-            print("A validação dos times falhou. Iniciando novamente...")
+            print("A validação dos times falhou. Cadastre um número par de times. ")

@@ -116,7 +116,6 @@ def add_teams_interactively(championship):
         print("Erro: O número máximo de times (16) já foi atingido.")
     else:
         while len(championship.teams) <= 16:
-            # adicionei isso
             print(f"teams.len: {len(championship.teams)}")
             add_more = input("Deseja adicionar mais um time? (s/n): ").strip().lower()
             if add_more == 'n':
