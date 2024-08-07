@@ -128,7 +128,7 @@ def add_teams_interactively(championship):
 
 # Exemplo de uso:
 if __name__ == "__main__":
-    print("Bem-vindo ao Campeonato Internacional de Ballit! Cadastre seus times!")
+    print("Bem-vindo ao Campeonato Internacional de Ballit! Cadastre os times! Instruções: cadastre um número par entre 8 e 16 times!")
     while True:
         championship = BallitChampionship()
         
