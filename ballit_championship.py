@@ -22,9 +22,6 @@ class BallitChampionship:
 
     def validate_teams(self):
         num_teams = len(self.teams)
-        if num_teams < 8:
-            print("Erro: O número mínimo de times (8) não foi atingido.")
-            return False
         if num_teams % 2 != 0:
             print("Erro: O número de times deve ser par.")
             return False
@@ -115,17 +112,19 @@ def add_teams_interactively(championship):
         founding_year = int(input(f"Em que ano foi fundado o time {name}? "))
         championship.add_team(name, chant, founding_year)
 
-    while len(championship.teams) < 16:
-        if len(championship.teams) >= 16:
-            print("Erro: O número máximo de times (16) já foi atingido.")
-            break
-        add_more = input("Deseja adicionar mais um time? (s/n): ").strip().lower()
-        if add_more == 'n':
-            break
-        name = input(f"Qual o nome do time {len(championship.teams) + 1}? ")
-        chant = input(f"Qual o grito de guerra do time {name}? ")
-        founding_year = int(input(f"Em que ano foi fundado o time {name}? "))
-        championship.add_team(name, chant, founding_year)
+    if len(championship.teams) > 16:
+        print("Erro: O número máximo de times (16) já foi atingido.")
+    else:
+        while len(championship.teams) <= 16:
+            # adicionei isso
+            print(f"teams.len: {len(championship.teams)}")
+            add_more = input("Deseja adicionar mais um time? (s/n): ").strip().lower()
+            if add_more == 'n':
+                break
+            name = input(f"Qual o nome do time {len(championship.teams) + 1}? ")
+            chant = input(f"Qual o grito de guerra do time {name}? ")
+            founding_year = int(input(f"Em que ano foi fundado o time {name}? "))
+            championship.add_team(name, chant, founding_year)
 
 # Exemplo de uso:
 if __name__ == "__main__":
