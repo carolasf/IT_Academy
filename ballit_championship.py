@@ -105,12 +105,12 @@ class BallitChampionship:
         team2['points'] = 50
         print(f"\n--- Partida: {team1['name']} vs {team2['name']} ---")
         while True:
-            print(f"Pontuação: {team1['name']} - {team1['points']} | {team2['name']} - {team2['points']}")
+            print(f"Pontuação - {team1['name']}: {team1['points']} | {team2['name']}: {team2['points']}")
             print("Opções: ")
-            print("1. Registrar um 'blot' para o time A")
-            print("2. Registrar um 'blot' para o time B")
-            print("3. Registrar um 'plif' para o time A")
-            print("4. Registrar um 'plif' para o time B")
+            print(f"1. Registrar um 'blot' para o time {team1['name']}")
+            print(f"2. Registrar um 'blot' para o time {team2['name']}")
+            print(f"3. Registrar um 'plif' para o time {team1['name']}")
+            print(f"4. Registrar um 'plif' para o time {team2['name']}")
             print("5. Aplicar um 'advrungh' (punição) para um time")
             print("6. Encerrar a partida")
             choice = input("Escolha uma opção: ").strip()
