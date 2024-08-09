@@ -68,7 +68,7 @@ class BallitChampionship:
         # Embaralha os times para formar duplas aleatórias
         random.shuffle(teams)
         matches = []
-        # Se o número de times for ímpar, um time recebe um "bye" (folga)
+        # Se o número de times for ímpar, um time recebe um "bye" 
         if len(teams) % 2 != 0:
             bye_team = teams.pop()
             matches.append((bye_team, None))
